@@ -4,6 +4,8 @@ var gameMotor = Class.extend(function(){
 		//...
 	};
 
+	this.started = false;
+
 	this.t = 0;
 	this.state = '';
 	this.key = 10;
@@ -29,20 +31,24 @@ var gameMotor = Class.extend(function(){
 		//this.key = 0;
 	};
 
-	/*this.start = function(){
+	this.start = function(){
+		this.started = true;
 		this.t = setInterval(this.cicle, 1000);
-	};*/
+	};
 
 	this.event_catcher = function(tecla){
-		this.key = tecla.keyCode;
-		console.log(this.state + ' --- ' + this.key);
-		if(typeof this.config.states[this.state] != 'undefined' && typeof this.config.states[this.state][this.key] != 'undefined'){
-			this[this.config.states[this.state][this.key]]();
-			console.log('algo');
-		}else{
-			this.key = 0;
-			console.log('nadaa');
+		if(this.started == true){
+			this.key = tecla.keyCode;
+			console.log(this.state + ' --- ' + this.key);
+			if(typeof this.config.states[this.state] != 'undefined' && typeof this.config.states[this.state][this.key] != 'undefined'){
+				this[this.config.states[this.state][this.key]]();
+				console.log('algo');
+			}else{
+				this.key = 0;
+				console.log('nadaa');
+			}
 		}
+		
 	};
 });
   

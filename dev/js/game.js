@@ -1,64 +1,48 @@
-function gg(){
+
+var newGame = gameMotor.extend(function(){
+	this.state = 'ini';
+
 	this.ok = function(){
-		console.log('ok');
-		//alert(state);
-	}
+		console.log('ok ' + this.state);
+		this.state = 'extra';
+	};
 
 	this.bye = function(){
-		console.log('bye');
-	}
-}
+		console.log('bye!');
+	};
 
-var my_game = new gg();
-//my_game.ok();
+	this.pp = function(){
+		console.log('muy bien '+ this.state);
+		this.state = 'ini';
+	};
 
-var game_states = {
-	'ini' : {
-		'49' : my_game.ok,
-		'50' : my_game.bye
-	}
-};
+	this.oo = function(){
+		console.log('oh!');
+	};
 
-/*var game_states = {
-	'ini' : {
-		'49' : function(){console.log('ok');},
-		'50' : function(){console.log('bye');}
-	}
-};*/
+	this.config = {
+		'states' : {
+			'ini' : {
+				'49' : 'ok',
+				'50' : 'bye'
+			},
+			'extra' : {
+				'51' : 'pp',
+				'49' : 'oo',
+			}
+		}
+	};
+});
+  
+var game = new newGame();
+game.start(); 
 
-//game_states['ini']['49']();
-//game_states['ini']['49']();
-//game_states['ini']['49']();
-//alert(JSON.stringify(game_states));
+document.addEventListener("keydown", function(te){game.event_catcher(te);});
+
+
 
 
 (function(){
-	game_motor.prototype.ok = function(){
-		this.state = 'jj';
-		console.log('okkkkk');
-	};
-	game_motor.prototype.bye = function(){
-		console.log('byeeee');
-	};
 	
-	var g = new game_motor();
-
-	var t = setInterval(function(){g.cicle();}, 1000);
-
-	//g.state = 'ini';
-
-	var c = {
-		'ini' : {
-			'49' : g.ok,
-			'50' : g.bye
-		}
-	};
-
-	g.setConfig(c);
-	//g.cicle();
 	
-	//document.addEventListener("keydown", g.event_catcher);
-	document.addEventListener("keydown", function(t){g.event_catcher(t);});
-
-	//g.start();
 })();
