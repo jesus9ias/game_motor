@@ -20,7 +20,7 @@ var gameMotor = Class.extend(function(){
 	};
 
 	this.cicle = function(){
-		console.log(this.state + ' ' + this.key);
+		//console.log(this.state + ' ' + this.key);
 		if(this.key != 0 && this.config['states'] != {}){
 			/*if(typeof this.config.states[this.state] != 'undefined'){
 				if(typeof this.config.states[this.state][this.key] != 'undefined'){
@@ -39,10 +39,10 @@ var gameMotor = Class.extend(function(){
 	this.event_catcher = function(tecla){
 		if(this.started == true){
 			this.key = tecla.keyCode;
-			console.log(this.state + ' --- ' + this.key);
+			//console.log(this.state + ' --- ' + this.key);
 			if(typeof this.config.states[this.state] != 'undefined' && typeof this.config.states[this.state][this.key] != 'undefined'){
 				this[this.config.states[this.state][this.key]]();
-				console.log('algo');
+				//console.log('algo');
 			}else{
 				this.key = 0;
 				console.log('nadaa');
@@ -50,15 +50,11 @@ var gameMotor = Class.extend(function(){
 		}
 		
 	};
+
+	document.addEventListener("keydown", this.event_catcher.bind(this));
 });
   
 
-
-//---
-
-function start(){
-	//document.addEventListener("keydown", function(t,game){game.event_catcher(t);});
-	t = setInterval(function(){g.cicle();}, 1000);
-}
+//document.addEventListener("keydown", function(te){game.event_catcher(te);});
 
 
