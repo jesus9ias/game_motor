@@ -2,6 +2,8 @@
 var newGame = gameMotor.extend(function(){
 	this.state = 'ini';
 
+	this.devMode = true;
+
 	this.config = {
 		'states' : {
 			'ini' : {
@@ -34,14 +36,14 @@ var newGame = gameMotor.extend(function(){
 	};
 
 });
-  
+
 var game = new newGame();
-game.start(); 
+game.start();
 
 
 
 
 (function(){
-	
-	
+
+
 })();

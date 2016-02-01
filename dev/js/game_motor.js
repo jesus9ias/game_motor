@@ -6,14 +6,14 @@ var gameMotor = Class.extend(function(){
 
 	this.started = false;
 
+	this.devMode = true;
+
 	this.t = 0;
 	this.state = '';
 	this.key = 10;
 	this.config = {
 		'states' : {}
 	};
-
-	//document.addEventListener("keydown", function(){this.event_catcher();});
 
 	this.setConfig = function(config){
 		this.config.states = config;
@@ -42,19 +42,21 @@ var gameMotor = Class.extend(function(){
 			//console.log(this.state + ' --- ' + this.key);
 			if(typeof this.config.states[this.state] != 'undefined' && typeof this.config.states[this.state][this.key] != 'undefined'){
 				this[this.config.states[this.state][this.key]]();
-				//console.log('algo');
+				if(this.devMode == true){
+					console.log(this.state + ' --- ' + this.key);
+				}
 			}else{
 				this.key = 0;
-				console.log('nadaa');
+				if(this.devMode == true){
+					console.log('not event');
+				}
 			}
 		}
-		
+
 	};
 
 	document.addEventListener("keydown", this.event_catcher.bind(this));
 });
-  
+
 
 //document.addEventListener("keydown", function(te){game.event_catcher(te);});
-
-
