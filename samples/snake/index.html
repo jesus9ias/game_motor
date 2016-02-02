@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+		<meta name="Author" content="Jesús Escamilla" />
+		<meta name="Title" content="Snake Game with Game Motor" />
+		<meta name="Description" content="Snake Game with Game Motor" />
+		<meta name="Keywords" content="" />
+		<meta name="Language" content="Spanish" />
+		<meta name="Revisit" content="1 day" />
+		<meta name="Distribution" content="Global" />
+		<meta name="Robots" content="All" />
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+		<link rel="stylesheet" href="css/snake.css"></link>
+
+		<title>Snake Game</title>
+	</head>
+	<body>
+
+		<div id="game_content" class="panel panel-primary">
+			<div class="panel-heading">Snake Game</div>
+			<div class="panel-body">
+				<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseInstructions" aria-expanded="false" aria-controls="collapseInstructions">
+					See Instructions
+				</button>
+
+				<div class="collapse" id="collapseInstructions">
+					<div class="well">
+						<p class="instructions">Start the game clicking on Start, or pressing Space bar.</p>
+						<p class="instructions">Use Left key and Right key to move the snake</p>
+						<p class="instructions">Press P key for Pausing or resum the game</p>
+					</div>
+				</div>
+
+				<canvas id="canvas"></canvas>
+
+				<div class="btn-group" role="group" aria-label="...">
+					<button type="button" onclick="game.start()" class="btn btn-default">Iniciar</button>
+					<button type="button" onclick="game.pause()" class="btn btn-default">Pausar</button>
+					<button type="button" onclick="game.turnLeft()" class="btn btn-default">Izquierda</button>
+					<button type="button" onclick="game.turnRight()" class="btn btn-default">Derecha</button>
+				</div>
+
+			</div>
+		</div>
+
+		<script src="http://cdn.extendjs.org/0.2.3/extend.min.js"></script>
+		<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="js/game_motor.js"></script>
+		<script type="text/javascript" src="js/snake.js"></script>
+	</body>
+</html>

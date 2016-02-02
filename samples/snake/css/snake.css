@@ -1,0 +1,21 @@
+body{
+  margin: 0px
+}
+
+#game_content{
+  width: 600px;
+  margin: 10px auto;
+}
+
+.instructions{
+  margin: 3px 0px;
+  font-size: 14px;
+}
+
+#canvas{
+  width: 450px;
+  height: 450px;
+  margin: 10px auto;
+  display: block;
+  border: 1px solid #b4b4b4;
+}
