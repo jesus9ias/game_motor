@@ -2,10 +2,10 @@
 var newGame = gameMotor.extend(function(){
 	this.state = 'ini';
 
-	this.devMode = true;
+	this.devMode = false;
 
 	this.config = {
-		'states' : {
+		'events' : {
 			'ini' : {
 				'49' : 'ok',
 				'50' : 'bye'

@@ -12,19 +12,19 @@ var gameMotor = Class.extend(function(){
 	this.state = '';
 	this.key = 10;
 	this.config = {
-		'states' : {}
+		'events' : {}
 	};
 
 	this.setConfig = function(config){
-		this.config.states = config;
+		this.config.events = config;
 	};
 
 	this.cicle = function(){
 		//console.log(this.state + ' ' + this.key);
 		if(this.key != 0 && this.config['states'] != {}){
-			/*if(typeof this.config.states[this.state] != 'undefined'){
-				if(typeof this.config.states[this.state][this.key] != 'undefined'){
-					this.config.states[this.state][this.key]();
+			/*if(typeof this.config.events[this.state] != 'undefined'){
+				if(typeof this.config.events[this.state][this.key] != 'undefined'){
+					this.config.events[this.state][this.key]();
 				}
 			}*/
 		}
@@ -40,8 +40,8 @@ var gameMotor = Class.extend(function(){
 		if(this.started == true){
 			this.key = tecla.keyCode;
 			//console.log(this.state + ' --- ' + this.key);
-			if(typeof this.config.states[this.state] != 'undefined' && typeof this.config.states[this.state][this.key] != 'undefined'){
-				this[this.config.states[this.state][this.key]]();
+			if(typeof this.config.events[this.state] != 'undefined' && typeof this.config.events[this.state][this.key] != 'undefined'){
+				this[this.config.events[this.state][this.key]]();
 				if(this.devMode == true){
 					console.log(this.state + ' --- ' + this.key);
 				}
