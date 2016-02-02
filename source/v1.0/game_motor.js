@@ -5,7 +5,7 @@ var gameMotor = Class.extend(function(){
 	};
 
 	this.started = false;
-	this.devMode = false;
+	this.devMode = true;
 	this.t = 0;
 	this.config = {
 		'interval' : 10,

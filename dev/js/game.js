@@ -1,6 +1,6 @@
 
 var newGame = gameMotor.extend(function(){
-	this.state = 'ini';
+	this.setState('ini');
 
 	this.devMode = false;
 
@@ -25,8 +25,8 @@ var newGame = gameMotor.extend(function(){
 	});
 
 	this.ok = function(){
-		console.log('ok ' + this.state);
-		this.state = 'extra';
+		console.log('ok ' + this.config.state);
+		this.setState('extra');
 	};
 
 	this.bye = function(){
@@ -34,8 +34,8 @@ var newGame = gameMotor.extend(function(){
 	};
 
 	this.pp = function(){
-		console.log('muy bien '+ this.state);
-		this.state = 'ini';
+		console.log('muy bien '+ this.config.state);
+		this.setState('ini');
 	};
 
 	this.oo = function(){
@@ -43,11 +43,11 @@ var newGame = gameMotor.extend(function(){
 	};
 
 	this.pom = function(){
-		console.log('pom pom');
+		//console.log('pom pom');
 	};
 
 	this.jaa = function(){
-		console.log('jaaaa!');
+		//console.log('jaaaa!');
 	};
 
 });
