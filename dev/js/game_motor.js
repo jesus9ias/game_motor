@@ -12,14 +12,29 @@ var gameMotor = Class.extend(function(){
 	this.state = '';
 	this.key = 10;
 	this.config = {
-		'events' : {}
+		'events' : {},
+		'cicles' : {}
 	};
 
-	this.setConfig = function(config){
-		this.config.events = config;
+	this.setEvents = function(events){
+		this.config.events = events;
+	};
+
+	this.setCicles = function(cicles){
+		this.config.cicles = cicles;
 	};
 
 	this.cicle = function(){
+		if(typeof this.config.cicles[this.state] != 'undefined'){
+			for(i in this.config.cicles[this.state]){
+				this[this.config.cicles[this.state][i]]();
+			}
+			if(this.devMode == true){
+				console.log(this.state);
+			}
+		}
+
+
 		//console.log(this.state + ' ' + this.key);
 		if(this.key != 0 && this.config['states'] != {}){
 			/*if(typeof this.config.events[this.state] != 'undefined'){
