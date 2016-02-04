@@ -2,7 +2,7 @@
 var newGame = gameMotor.extend(function(){
 	this.setState('playing');
 
-	this.devMode = true;
+	this.devMode = false;
 
 	this.setInterval(200);
 
@@ -30,6 +30,11 @@ var newGame = gameMotor.extend(function(){
 		]
 	};
 
+	this.meat = {
+		'x': 100,
+		'y': 100
+	};
+
 	this.setCicles({
 		'playing' : ['renderGame']
 	});
@@ -47,7 +52,7 @@ var newGame = gameMotor.extend(function(){
 	};
 
 	this.turnLeft = function(){
-		console.log('turn left');
+		//console.log('turn left');
 		if(this.snake.dir == 'right'){
 			this.snake.dir = 'top';
 		}else if(this.snake.dir == 'top'){
@@ -60,7 +65,7 @@ var newGame = gameMotor.extend(function(){
 	};
 
 	this.turnRight = function(){
-		console.log('turn right');
+		//console.log('turn right');
 		if(this.snake.dir == 'right'){
 			this.snake.dir = 'down';
 		}else if(this.snake.dir == 'down'){
@@ -70,6 +75,14 @@ var newGame = gameMotor.extend(function(){
 		}else if(this.snake.dir == 'top'){
 			this.snake.dir = 'right';
 		}
+	};
+
+	this.isHiting = function(){
+	  var hit = false;
+	  for(i in this.snake.segments){
+
+	  }
+	  return hit;
 	};
 
 	this.renderGame = function(){
@@ -82,11 +95,28 @@ var newGame = gameMotor.extend(function(){
 		var x = 0;
 		var y = 0;
 
+		if(this.meat.x == this.snake.segments[0].x && this.meat.y == this.snake.segments[0].y){
+			//this.setState('paused');
+			this.snake.segments.push({'x': this.snake.segments[this.snake.segments.length-1].x, 'y': this.snake.segments[this.snake.segments.length-1].y});
+			this.meat.x = Math.floor(Math.random() * 44) * 10;
+			this.meat.y = Math.floor(Math.random() * 44) * 10;
+			console.log(this.meat.x + ' ' + this.meat.y);
+		}
+
+		if(this.snake.segments[0].x < 0
+			|| this.snake.segments[0].x >= 450
+			|| this.snake.segments[0].y < 0
+			|| this.snake.segments[0].y >= 450
+			|| this.isHiting()
+		){
+			this.setState('paused');
+		}
+
 		for(i in this.snake.segments){
 			var s = this.snake.segments[i];
-			ctx.fillStyle = "#000000";
-			ctx.fillRect(s.x,s.y,10,10);
 			if(i == 0){
+				ctx.fillStyle = "#ff0000";
+				ctx.fillRect(s.x,s.y,10,10);
 				x = this.snake.segments[i].x;
 				y = this.snake.segments[i].y;
 				if(this.snake.dir == 'right'){
@@ -102,6 +132,8 @@ var newGame = gameMotor.extend(function(){
 					this.snake.segments[i].y += 10;
 				}
 			}else{
+				ctx.fillStyle = "#000000";
+				ctx.fillRect(s.x,s.y,10,10);
 				var auxX = this.snake.segments[i].x;
 				var auxY = this.snake.segments[i].y;
 				this.snake.segments[i].x = x;
@@ -110,7 +142,12 @@ var newGame = gameMotor.extend(function(){
 				y = auxY;
 			}
 		}
-		console.log('rendering ' + this.snake.dir);
+
+		ctx.fillStyle = "#000000";
+		ctx.fillRect(this.meat.x,this.meat.y,10,10);
+
+
+		//console.log('rendering ' + this.snake.dir);
 	};
 
 
