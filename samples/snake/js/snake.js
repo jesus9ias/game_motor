@@ -1,12 +1,15 @@
 
 var newGame = gameMotor.extend(function(){
-	this.setState('playing');
+	this.setState('ini');
 
-	this.devMode = false;
+	this.devMode = true;
 
 	this.setInterval(200);
 
 	this.setEvents({
+		'ini' : {
+			'83' : 'ini'
+		},
 		'paused' : {
 			'80' : 'continue'
 		},
@@ -16,9 +19,15 @@ var newGame = gameMotor.extend(function(){
 			'39' : 'turnRight'
 		},
 		'ending' : {
-
+				'83' : 'restart'
 		}
 	});
+
+	this.setCicles({
+		'playing' : ['renderGame']
+	});
+
+	this.canvas = {};
 
 	this.snake = {
 		'dir' : 'down',
@@ -35,9 +44,29 @@ var newGame = gameMotor.extend(function(){
 		'y': 100
 	};
 
-	this.setCicles({
-		'playing' : ['renderGame']
-	});
+	this.ini = function(){
+		this.canvas.c = document.getElementById("canvas");
+		this.canvas.ctx = this.canvas.c.getContext("2d");
+		this.setState('playing');
+	};
+
+	this.restart = function(){
+		this.snake = {
+			'dir' : 'down',
+			'segments' : [
+				{'x': 70, 'y': 70},
+				{'x': 60, 'y': 70},
+				{'x': 50, 'y': 70},
+				{'x': 40, 'y': 70},
+			]
+		};
+
+		this.meat = {
+			'x': 100,
+			'y': 100
+		};
+		this.setState('playing');
+	};
 
 	this.pause = function(){
 		if(this.config.state == 'paused'){
@@ -85,12 +114,27 @@ var newGame = gameMotor.extend(function(){
 	  return hit;
 	};
 
-	this.renderGame = function(){
-		var c = document.getElementById("canvas");
-		var ctx = c.getContext("2d");
+	this.touchFrame = function(){
+		if(this.snake.segments[0].x < 0
+			|| this.snake.segments[0].x >= 450
+			|| this.snake.segments[0].y < 0
+			|| this.snake.segments[0].y >= 450
+			|| this.isHiting()
+		){
+			this.setState('ending');
+		}
+	}
 
-		ctx.fillStyle = "#ffffff";
-		ctx.fillRect(0,0,450,450);
+	this.clearFrame = function(){
+		this.canvas.ctx.fillStyle = "#ffffff";
+		this.canvas.ctx.fillRect(0,0,450,450);
+	}
+
+	this.renderGame = function(){
+		//var c = document.getElementById("canvas");
+		//var ctx = c.getContext("2d");
+
+		this.clearFrame();
 
 		var x = 0;
 		var y = 0;
@@ -103,20 +147,13 @@ var newGame = gameMotor.extend(function(){
 			console.log(this.meat.x + ' ' + this.meat.y);
 		}
 
-		if(this.snake.segments[0].x < 0
-			|| this.snake.segments[0].x >= 450
-			|| this.snake.segments[0].y < 0
-			|| this.snake.segments[0].y >= 450
-			|| this.isHiting()
-		){
-			this.setState('paused');
-		}
+		this.touchFrame();
 
 		for(i in this.snake.segments){
 			var s = this.snake.segments[i];
 			if(i == 0){
-				ctx.fillStyle = "#ff0000";
-				ctx.fillRect(s.x,s.y,10,10);
+				this.canvas.ctx.fillStyle = "#ff0000";
+				this.canvas.ctx.fillRect(s.x,s.y,10,10);
 				x = this.snake.segments[i].x;
 				y = this.snake.segments[i].y;
 				if(this.snake.dir == 'right'){
@@ -132,8 +169,8 @@ var newGame = gameMotor.extend(function(){
 					this.snake.segments[i].y += 10;
 				}
 			}else{
-				ctx.fillStyle = "#000000";
-				ctx.fillRect(s.x,s.y,10,10);
+				this.canvas.ctx.fillStyle = "#000000";
+				this.canvas.ctx.fillRect(s.x,s.y,10,10);
 				var auxX = this.snake.segments[i].x;
 				var auxY = this.snake.segments[i].y;
 				this.snake.segments[i].x = x;
@@ -143,8 +180,8 @@ var newGame = gameMotor.extend(function(){
 			}
 		}
 
-		ctx.fillStyle = "#000000";
-		ctx.fillRect(this.meat.x,this.meat.y,10,10);
+		this.canvas.ctx.fillStyle = "#000000";
+		this.canvas.ctx.fillRect(this.meat.x,this.meat.y,10,10);
 
 
 		//console.log('rendering ' + this.snake.dir);
@@ -155,4 +192,4 @@ var newGame = gameMotor.extend(function(){
 });
 
 var game = new newGame();
-//game.start();
+game.start();

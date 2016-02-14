@@ -48,6 +48,9 @@ var gameMotor = Class.extend(function(){
 	};
 
 	this.event_catcher = function(tecla){
+		if(this.devMode == true){
+			console.log(tecla.keyCode);
+		}
 		if(this.started == true){
 			this.config.key = tecla.keyCode;
 			if(typeof this.config.events[this.config.state] != 'undefined' && typeof this.config.events[this.config.state][this.config.key] != 'undefined'){
