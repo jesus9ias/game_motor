@@ -36,8 +36,8 @@ var gameMotor = Class.extend(function(){
 			for(i in this.config.cicles[this.config.state]){
 				this[this.config.cicles[this.config.state][i]]();
 			}
-			if(this.devMode == true){
-				console.log(this.config.state);
+			if(this.devMode == true && typeof this.config.cicles[this.config.state] != 'undefined'){
+				console.log(this.config.state + ' - ' + this.config.cicles[this.config.state]);
 			}
 		}
 	};
@@ -48,18 +48,21 @@ var gameMotor = Class.extend(function(){
 	};
 
 	this.event_catcher = function(tecla){
+		if(this.devMode == true && this.started == false){
+			console.log(tecla.keyCode);
+		}
 		if(this.started == true){
 			this.config.key = tecla.keyCode;
 			if(typeof this.config.events[this.config.state] != 'undefined' && typeof this.config.events[this.config.state][this.config.key] != 'undefined'){
 				this[this.config.events[this.config.state][this.config.key]]();
 				if(this.devMode == true){
-					console.log(this.config.state + ' --- ' + this.config.key);
+					console.log(this.config.state + ' - ' + this.config.key);
 				}
 			}else{
-				this.config.key = 0;
 				if(this.devMode == true){
-					console.log('not event');
+					console.log('not event' + ' - ' + this.config.key);
 				}
+				this.config.key = 0;
 			}
 		}
 
